@@ -3,20 +3,18 @@ package com.demo.fk.vesp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
-import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.reflect.Proxy
-import android.support.constraint.ConstraintLayout
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //to check static layout, switch layout to activity_main and comment / remove the call to setup()
         setContentView(R.layout.activity_main)
-        setupMap()
+        setup()
     }
 
-    private fun setupMap() {
+    private fun setup() {
         val view1 = ItemView(this).load("Item 1st")
         val view2 = ItemView(this).load("2nd Item")
         val targetView1 = ItemViewTarget(this).load("24")
