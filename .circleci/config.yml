@@ -22,7 +22,7 @@ jobs:
           name: Run Tests
           command: ./gradlew lint test
       - store_artifacts:
-          path: build/outputs/apk
+          path: app/build/outputs/apk
           destination: apk
       - store_test_results:
           path: app/build/test-results
@@ -33,5 +33,5 @@ workflows:
     jobs:
       - build:
           filters:
-            branches:
+            tags:
               only: /.*/
