@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build:
+  build-debug:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-25-alpha
@@ -29,9 +29,11 @@ jobs:
 
 workflows:
   version: 2
-  build-deploy:
+  build:
     jobs:
-      - build:
+      - build-debug:
           filters:
             tags:
               only: /.*/
+            branches:
+              ignore: /.*/
