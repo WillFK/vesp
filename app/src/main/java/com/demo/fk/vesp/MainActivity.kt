@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //to check static layout, switch layout to activity_main and comment / remove the call to setup()
-        setContentView(R.layout.activity_main)
-        setup()
+        setContentView(R.layout.activity_main_alt)
+        //setup()
     }
 
     private fun setup() {
