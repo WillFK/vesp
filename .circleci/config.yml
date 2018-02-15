@@ -1,7 +1,11 @@
 version: 2
 
-jobs:
+dependencies:
+  - run:
+      name: Download Dependencies
+      command: ./gradlew androidDependencies
 
+jobs:
   build-debug:
     working_directory: ~/code
     docker:
@@ -10,9 +14,6 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
