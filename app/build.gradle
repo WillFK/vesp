@@ -22,7 +22,7 @@ android {
     flavorDimensions "default"
     productFlavors {
         live {}
-        stage {}
+        staging {}
     }
 }
 
