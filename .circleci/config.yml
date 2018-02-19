@@ -1,5 +1,8 @@
 version: 2
 
+cache_key: &cache_key
+  key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
 dependencies:
   - run:
       name: Download Dependencies
