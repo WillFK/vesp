@@ -46,7 +46,7 @@ jobs:
         - run:
             name: Test
             command: |
-              ./gradlew test
+              ./gradlew testLiveRelease
               mkdir -p ~/junit/
               find . -type f -regex ".*/build/test-results/.*xml" -exec cp --parents {} ~/junit/ \;
         - store_test_results:
@@ -58,6 +58,12 @@ jobs:
             paths:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
+        - run:
+          name: TestAndroid
+          command: |
+            ./gradlew cAT
+            mkdir -p ~/cAT/
+            find . -type f -regex ".*/build/reports/androidTests/connected/all/*" -exec cp --parents {} ~/cAT/ \;
 
 workflows:
   version: 2
