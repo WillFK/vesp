@@ -26,6 +26,8 @@ jobs:
             command: ./gradlew assembleStaging
         - store_artifacts:
             path: app/build/outputs/apk
+            destination: apk
+
 
         - save_cache:
             <<: *cache_key
