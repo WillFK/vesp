@@ -3,6 +3,10 @@ version: 2
 cache_key: &cache_key
   key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
+machine:
+  environment:
+    QEMU_AUDIO_DRV: none
+
 dependencies:
   - run:
       name: Download Dependencies
@@ -33,6 +37,11 @@ jobs:
       working_directory: ~/LolsumoRelease
       docker:
         - image: circleci/android:api-27-alpha
+      pre:
+          - emulator -avd circleci-android24 -no-window:
+              background: true
+              parallel: true
+          - circle-android wait-for-boot
       steps:
         - checkout
         - restore_cache:
@@ -58,13 +67,6 @@ jobs:
             paths:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
-        - run:
-            name: Setup emulator
-            command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
-        - run:
-            name: Launch emulator
-            command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-            background: true
         - run:
             name: TestAndroid
             command: |
