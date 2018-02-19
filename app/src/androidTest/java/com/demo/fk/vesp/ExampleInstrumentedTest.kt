@@ -21,4 +21,13 @@ class ExampleInstrumentedTest {
 
         assertEquals("com.demo.fk.vesp", appContext.packageName)
     }
+
+
+    @Test
+    fun useAppContext2() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getTargetContext()
+
+        assertEquals("com.demo.fk.vesp", appContext.packageName)
+    }
 }
