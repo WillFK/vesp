@@ -59,11 +59,11 @@ jobs:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
         - run:
-          name: TestAndroid
-          command: |
-            ./gradlew cAT
-            mkdir -p ~/cAT/
-            find . -type f -regex ".*/build/reports/androidTests/connected/all/*" -exec cp --parents {} ~/cAT/ \;
+            name: TestAndroid
+            command: |
+              ./gradlew cAT
+              mkdir -p ~/cAT/
+              find . -type f -regex ".*/build/reports/androidTests/connected/all/*" -exec cp --parents {} ~/cAT/ \;
 
 workflows:
   version: 2
