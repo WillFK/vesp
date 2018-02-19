@@ -11,24 +11,48 @@ dependencies:
 jobs:
   build-stage:
       working_directory: ~/LolsumoStage
-
       docker:
         - image: circleci/android:api-27-alpha
-
       steps:
         - checkout
-
         - restore_cache:
             <<: *cache_key
-
         - run:
             name: Assemble
             command: ./gradlew assembleStaging
         - store_artifacts:
             path: app/build/outputs/apk
             destination: apk
+        - save_cache:
+            <<: *cache_key
+            paths:
+              - ~/.gradle/caches
+              - ~/.gradle/wrapper
 
-
+  build-live:
+      working_directory: ~/LolsumoRelease
+      docker:
+        - image: circleci/android:api-27-alpha
+      steps:
+        - checkout
+        - restore_cache:
+            <<: *cache_key
+        - run:
+            name: Assemble
+            command: ./gradlew assembleLive
+        - store_artifacts:
+            path: app/build/outputs/apk
+            destination: apk
+        - run:
+            name: Test
+            command: |
+              ./gradlew test
+              mkdir -p ~/junit/
+              find . -type f -regex ".*/build/test-results/.*xml" -exec cp --parents {} ~/junit/ \;
+        - store_test_results:
+            path: ~/junit
+        - store_artifacts:
+            path: ~/junit
         - save_cache:
             <<: *cache_key
             paths:
@@ -39,7 +63,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-stage:
+      - build-live:
           filters:
             tags:
               only: /.*/
