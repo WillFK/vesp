@@ -3,10 +3,6 @@ version: 2
 cache_key: &cache_key
   key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
-machine:
-  environment:
-    QEMU_AUDIO_DRV: none
-
 dependencies:
   - run:
       name: Download Dependencies
@@ -37,11 +33,6 @@ jobs:
       working_directory: ~/LolsumoRelease
       docker:
         - image: circleci/android:api-27-alpha
-      pre:
-          - emulator -avd circleci-android24 -no-window:
-              background: true
-              parallel: true
-          - circle-android wait-for-boot
       steps:
         - checkout
         - restore_cache:
@@ -67,12 +58,6 @@ jobs:
             paths:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
-        - run:
-            name: TestAndroid
-            command: |
-              ./gradlew cAT
-              mkdir -p ~/cAT/
-              find . -type f -regex ".*/build/reports/androidTests/connected/all/*" -exec cp --parents {} ~/cAT/ \;
 
 workflows:
   version: 2
@@ -81,6 +66,4 @@ workflows:
       - build-live:
           filters:
             tags:
-              only: /.*/
-            branches:
-              only: /.*/
+              only: /v[0-9]+(\.[0-9]+)*/
