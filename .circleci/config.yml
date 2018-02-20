@@ -59,18 +59,11 @@ jobs:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
 
-
 workflows:
   version: 2
   build:
     jobs:
       - build-stage:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
-      - build-live:
           filters:
             tags:
               only: /.*/
