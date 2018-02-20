@@ -58,7 +58,7 @@ jobs:
             paths:
               - ~/.gradle/caches
               - ~/.gradle/wrapper
-              
+
 
 workflows:
   version: 2
@@ -67,7 +67,7 @@ workflows:
       - build-stage:
           filters:
             tags:
-              only: /^v[0-9]+(\.[0-9]+)*.*/
+              only: /^release.*/
             branches:
               ignore: /.*/
       - build-live:
@@ -75,6 +75,6 @@ workflows:
             - build-stage
           filters:
             tags:
-              only: /^v[0-9]+(\.[0-9]+)*.*/
+              only: /^release.*/
             branches:
               ignore: /.*/
