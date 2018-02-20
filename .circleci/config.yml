@@ -67,12 +67,12 @@ workflows:
       - build-stage:
           filters:
             tags:
-              only: /^release.*/
+              only: /.*/
             branches:
               ignore: /.*/
       - build-live:
           filters:
             tags:
-              only: /^release.*/
+              only: /.*/
             branches:
               ignore: /.*/
