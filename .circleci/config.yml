@@ -66,7 +66,7 @@ workflows:
       - build-stage:
           filters:
             tags:
-              only: /^qa(\/.*)/
+              only: /^elease(\/.*)|qa(\/.*)/
             branches:
               ignore: /.*/
       - build-live:
