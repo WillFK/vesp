@@ -63,15 +63,17 @@ workflows:
   version: 2
   build-workflow:
     jobs:
-      - build-live:
-          filters:
-            tags:
-              only: /^release(\/.*)/
-            branches:
-              ignore: /.*/
       - build-stage:
           filters:
             tags:
               only: /^qa(\/.*)/
+            branches:
+              ignore: /.*/
+      - build-live:
+          requires:
+            - build-stage
+          filters:
+            tags:
+              only: /^release(\/.*)/
             branches:
               ignore: /.*/
