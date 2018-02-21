@@ -70,8 +70,6 @@ workflows:
             branches:
               ignore: /.*/
       - build-live:
-          requires:
-            - build-stage
           filters:
             tags:
               only: /^release(\/.*)/
